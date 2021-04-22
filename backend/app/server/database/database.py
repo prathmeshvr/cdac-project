@@ -5,13 +5,8 @@ import json
 from .database_helper import student_helper, admin_helper ,asset_helper, asset_helperV1,asset_helperV2
 import asyncio
 import pprint
-# MONGO_DETAILS = config('MONGO_DETAILS')
-# client = pymongo.MongoClient("mongodb+srv://cdac:<password>@cluster0.fa505.mongodb.net/cdac?retryWrites=true&w=majority")
-# db = client.predMaint
-# client = pymongo.MongoClient("mongodb+srv://cdac:cdac@cluster0.fa505.mongodb.net/cdac?retryWrites=true&w=majority")
-# db = client.predMaint
-# DATABASE_URL = "mongodb://localhost:27017"
-DATABASE_URL = "mongodb+srv://cdac:cdac@cluster0.fa505.mongodb.net/cdac?retryWrites=true&w=majority"
+
+DATABASE_URL = ""
 client = motor.motor_asyncio.AsyncIOMotorClient(DATABASE_URL, uuidRepresentation="standard")
 
 # database = client.students

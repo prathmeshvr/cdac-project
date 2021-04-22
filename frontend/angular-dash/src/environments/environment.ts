@@ -9,7 +9,7 @@ export const environment = {
   production: false,
   logLevel: NgxLoggerLevel.TRACE,
   serverLogLevel: NgxLoggerLevel.OFF,
-  apiUrl: 'http://13.59.165.221:8000'
+  apiUrl: 'http://localhost:8000'
   // apiUrl: 'http://localhost:8000',
   // mqtt: {
 	// 	server: '192.168.0.104',
