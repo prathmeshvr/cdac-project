@@ -1,0 +1,201 @@
+<div class="heading"><h1>Billing</h1></div>
+
+<!-- <ngx-gauge [type]="gaugeType" 
+           [value]="gaugeValue" 
+           [label]="gaugeLabel"  
+           [append]="gaugeAppendText">
+</ngx-gauge> -->
+
+<div class="container" fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex="98%">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+            
+            <!-- TxnID   Column -->
+            <ng-container matColumnDef="TxnID  ">
+                <th mat-header-cell *matHeaderCellDef> TxnID   </th>
+                <td mat-cell *matCellDef="let element"> {{element.TxnID}} </td>
+            </ng-container>
+            
+            <!-- Month    Column -->
+            <ng-container matColumnDef="Month   ">
+                <th mat-header-cell *matHeaderCellDef> Month    </th>
+                <td mat-cell *matCellDef="let element"> {{element.Month}} </td>
+            </ng-container>
+            
+            <!-- Amount Column -->
+            <ng-container matColumnDef="Amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.Amount}} </td>
+            </ng-container>
+            
+            <!-- Download Column -->
+            <ng-container matColumnDef="Download">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element"><a mat-raised-button href="#" target="_blank" color="warn" >Download</a> </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+
+
+<!-- <div class="container">
+    <div class="row">
+  
+      <div id="htmlData" #htmlData>
+        <table >
+          <tr >
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+          <tr *ngFor="let user of USERS">
+            <th>{{user.id}}</th>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone}}</td>
+          </tr>
+        </table>
+      </div>
+  
+      <div >
+        <button  mat-raised-button (click)="openPDF()">Open PDF</button>
+        <button  mat-raised-button (click)="downloadPDF()">Download PDF</button>
+      </div>
+  
+    </div>
+  </div> -->
+
+  <!-- <div >
+    <button  mat-raised-button (click)="openPDF()">Open PDF</button>
+    <button  mat-raised-button (click)="downloadPDF()">Download PDF</button>
+  </div> -->
+
+<div class="container">
+    <div class="row">
+  
+      <div id="htmlData" #htmlData class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:300px;">
+                            </td>
+                            
+                            <td>
+                                Invoice #: 123<br>
+                                Created: January 1, 2015<br>
+                                Due: February 1, 2015
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Sparksuite, Inc.<br>
+                                12345 Sunny Road<br>
+                                Sunnyville, CA 12345
+                            </td>
+                            
+                            <td>
+                                Acme Corp.<br>
+                                John Doe<br>
+                                john@example.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Payment Method
+                </td>
+                
+                <td>
+                    Check #
+                </td>
+            </tr>
+            
+            <tr class="details">
+                <td>
+                    Check
+                </td>
+                
+                <td>
+                    1000
+                </td>
+            </tr>
+            
+            <tr class="heading">
+                <td>
+                    Item
+                </td>
+                
+                <td>
+                    Price
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Website design
+                </td>
+                
+                <td>
+                    $300.00
+                </td>
+            </tr>
+            
+            <tr class="item">
+                <td>
+                    Hosting (3 months)
+                </td>
+                
+                <td>
+                    $75.00
+                </td>
+            </tr>
+            
+            <tr class="item last">
+                <td>
+                    Domain name (1 year)
+                </td>
+                
+                <td>
+                    $10.00
+                </td>
+            </tr>
+            
+            <tr class="total">
+                <td></td>
+                
+                <td>
+                    Total: $385.00
+                </td>
+            </tr>
+        </table>
+      </div>
+  
+      <div >
+        <button  mat-raised-button (click)="openPDF()">Open PDF</button>
+        <button  mat-raised-button (click)="downloadPDF()">Download PDF</button>
+      </div>
+  
+    </div>
+  </div>
+
+

@@ -1,0 +1,6 @@
+tensorflow
+fastapi
+pymongo
+numpy
+scikit-learn
+pandas

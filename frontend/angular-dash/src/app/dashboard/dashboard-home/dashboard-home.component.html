@@ -1,0 +1,80 @@
+<div class="heading"><h1>Plants </h1></div>
+
+<div class="content" fxLayout="row wrap" fxLayoutGap="20px grid">
+  <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let asset of sampleValue;let i = index">
+    <button mat-raised-button id="button-card" (click)="setAsset($event,i)" routerLink="/assets">
+      
+      <h4 >{{sampleValue[i].name}}</h4>
+      
+      <img src={{sampleValue[i].url}} style="width:50px;height:50px;">
+    </button>
+  </div>
+</div>
+
+
+<!-- <div class="content" >
+<mat-accordion class="mat-accc">
+
+  <mat-expansion-panel *ngFor="let asset of sampleValue;let i = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title> 
+        <div class="led-box">
+          <div class="led-green"></div>
+        </div>
+        <img src={{sampleValue[i].assetImg}} style="width:35px;height:35px;color:azure">
+        <div style="width:35px;height:35px;"></div>
+        <strong>{{sampleValue[i].assetName}}</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+      <button mat-stroked-button color="accent"  (click)="setAsset($event,i)" routerLink="/assets">Enter Room</button>
+      <button mat-stroked-button color="accent"   >View Insights</button>
+      <button mat-stroked-button color="accent"   >Turn off all</button>
+      <button mat-stroked-button color="accent"   routerLink="/analytics">Analytics</button>
+    </div>
+    
+  </mat-expansion-panel>
+
+
+
+</mat-accordion>
+<div fxLayout="row wrap" fxLayoutGap="20px grid">
+  <div [fxFlex]="50" fxFlex.xs="100%" fxFlex.sm="33%">
+    <div echarts [options]="options" [theme]="theme"  class="chart" ></div>
+  </div>
+
+  <div [fxFlex]="50" fxFlex.xs="100%" fxFlex.sm="33%">
+    <div echarts [options]="option" [theme]="theme"  class="chart" ></div>
+  </div>
+</div>
+
+
+
+
+
+</div> -->
+
+<!-- demo leds -->
+<!-- <div class="container"> -->
+  <!-- <div class="led-box">
+    <div class="led-green"></div>
+  </div>
+	<div class="led-box">
+    <div class="led-yellow"></div>
+    <p>Yellow LED</p>
+  </div>
+  <div class="led-box">
+    <div class="led-red"></div>
+    <p>Red LED</p>
+  </div>
+  <div class="led-box">
+    <div class="led-blue"></div>
+    <p>Blue LED</p>
+  </div> -->
+<!-- </div> -->
+
+
+<router-outlet></router-outlet>

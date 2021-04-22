@@ -1,0 +1,338 @@
+import { Component } from '@angular/core';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import { dailyRecords } from './jalaramRecords';
+import { ChartOptions, ChartType, ChartDataSets, ChartColor } from 'chart.js';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+import { Label,Color } from 'ng2-charts';
+import { formatDate } from "@angular/common";
+
+var Yax: number = 0;
+var Xax:number = 0;
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent {
+  title = 'workfile1';
+// =========== These are blank array in which data for the graphs is pushed / ===========//
+  Data1 = [];
+  Data2 = [];
+  Data3 =[];
+
+  // ====================== /Line Chart Data Begins/ ==================== //
+   public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { 
+      xAxes:[{}], 
+      yAxes: [{}]},
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabels = [];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [pluginDataLabels];
+  public barChartData= [ ];
+// ====================/ Line Chart Data Ends/======================== //
+  // ====================== /Line Chart Data Begins/ ==================== //
+  public barChartOptions1: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { 
+      xAxes:[{}], 
+    yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      }
+    }
+  };
+  public barChartLabels1 = [];
+  public barChartType1: ChartType = 'bar';
+  public barChartLegend1 = true;
+  public barChartPlugins1 = [pluginDataLabels];
+
+  public barChartData1= [ ];
+// ==========/Chart Data/ ============= //
+
+    dailyFuelVolumeRecord = [
+    // { prop: 'serialnum', name: 'Sr.No.', width: 100 },
+    { prop: 'time', name: 'Time ', width: 100 },
+    { prop: 'tank1Volume', name: 'Tank 1 Volume L', width: 100 },
+    { prop: 'tank2Volume', name: 'Tank 2 Volume L', width: 100 },
+    { prop: 'tankVolume', name: 'Tank Volume L ', width: 100 },
+    { prop: 'refill', name: 'Fuel Refilled', width: 100 },
+    { prop: 'delivery', name: 'Fuel Delivered', width: 100 },
+  ];
+
+// DataSource for Table Record
+  data = dailyRecords; //Data defined in jalaramRecord.ts is called here 
+// ==========// ============= //
+
+// ============ /* Table with 2 columns and 5 rows */ =================//
+// ============ / Header Table for function : createdPdf() / =================//
+
+headerColumnDailyRecord: Array<any> = [{
+  title: null,
+  dataKey: 'record'
+}, {
+  title: null,
+  dataKey: 'value'
+}];
+headerRowDailyRecord: Array<any> = [];
+
+//==================== NgModel ==================//
+clientName= "Jalaram Enterprise, Surat";
+reportDate = new Date(); //Employee Count Today
+openingStock = 200;//Contractor Count Today
+closingStock = 100;//Visitor Count Today
+tableTitle= "Fuel Record Summary"
+graphTitle= "Fuel Record Analysis"
+// numViolationCount = 12;//Total Violation Count Today
+// =========================================================//
+
+// ============ /* Table with 2 columns and 5 rows */ =================//
+// ============ / Header Table for function : createdPdf() / =================//
+
+headerColumnMonthlyRecord: Array<any> = [{
+  title: null,
+  dataKey: 'record'
+}, {
+  title: null,
+  dataKey: 'value'
+}];
+headerRowMonthlyRecord: Array<any> = [];
+
+// =========================================================//
+
+/**********************************************************************
+  Constructor :
+/**********************************************************************/
+  constructor() {
+
+    const dailyRecord = {
+      "Report": "Today's Sales Report",
+      "Client Name": this.clientName,
+      // "Record Date": this.reportDate,
+      "Opening Stock": this.openingStock+" L"+(new Date("06/10/2020 06:00:00")),
+      "Closing Stock": this.closingStock+" L"+(new Date("06/10/2020 20:00:00")),
+      "Generated On":this.getFormattedDate()
+    }; 
+
+    this.headerRowDailyRecord = Object.keys(dailyRecord).map((key) => {  
+      return { 'record': key, 'value': dailyRecord[key] };
+    });
+  }
+
+// ============ / Table with 2 columns and 5 rows / =================//
+
+/**********************************************************************
+Function :ngOnInit
+/**********************************************************************/
+  ngOnInit() {
+    this.setPrintColAttr();
+
+    console.log(this.data)
+    for (let index = 0; index < this.data.length; index++) {
+      var a = this.data[index].tank1Volume
+      var b = this.data[index].tank2Volume
+      var c = this.data[index].time
+      var d = this.data[index].tankVolume
+      this.Data1.push([a])
+      console.log("Data1",this.Data1)
+      this.Data2.push([b])
+      console.log("Data1",this.Data2)
+      this.barChartLabels.push(c)
+      console.log("Data1",c)
+      this.Data3.push([d])
+        console.log("Data3",this.Data3)
+      this.barChartLabels1.push(c)
+      console.log("Data1",c)
+    }
+    this.barChartData.push({data:this.Data1,label:"Tank 1"},{data:this.Data2,label:"Tank 2"})
+    this.barChartData1.push({data:this.Data3,label:"Total Volume"})
+    // ********************************************************************//
+  }
+
+/**********************************************************************
+Function :createPdf  -> This will generate the record for daily records of Jalaram
+/**********************************************************************/
+  createPdf() {
+    var doc = new jsPDF(
+      'l',
+      'pt',
+      "a4"
+    )
+
+    // ====================== / Content on the top of Page / ======================= //
+    
+    var pageWidth = 842; //Dimension of A4 in pt (points)
+    var pageLength = 595;//Dimension of A4 in pt (points)
+    var pageNumber = doc.internal.getNumberOfPages()
+    var FileName = 'Daily Record.pdf';
+    var organization = 'Jalaram Enterprise, Surat';    
+
+    doc.rect(40, Yax+40,760, 110); // empty rectangle doc.rect(x,y,width,height)c c
+
+    // =====================================================
+    doc.setFontSize(16);
+    doc.setTextColor(100);
+    // doc.text(this.tableTitle, pageWidth / 2, 520, 'center'); 
+    doc.text(this.graphTitle, pageWidth / 2, 170, 'center'); 
+    // ==========================================================
+    // *****************/Bar Chart/******************* //
+    var canvasFuelSummary = document.querySelector('#tankVolume') as HTMLCanvasElement;
+    var canvasfuelAnalysis = canvasFuelSummary.toDataURL();
+    // var time ="1 week";
+    doc.setFontSize(10);
+    doc.addImage(canvasfuelAnalysis,'JPEG',40,180, 750, 150); //Yax2+20
+    //  ********************************************** //
+
+    // *****************/Bar Chart/******************* //
+    var canvasVolume = document.querySelector('#totalVolume') as HTMLCanvasElement;
+    var canvasTotalVolume = canvasVolume.toDataURL();
+    // var time ="1 week";
+    doc.setFontSize(14);
+    doc.addImage(canvasTotalVolume,'JPEG',40,330, 750, 150); //Yax2+20
+    
+    //  ********************************************** //
+
+    // =========================================================
+    var pageCount = '{total_pages_count_string}'
+    let officeCd = 'SYL Technologies';
+    let today = formatDate(new Date(), 'MM/dd/yyyy', 'en-US'); //Date to be displayed in Footer
+    doc.autoTable({ 
+      columns: this.headerColumnDailyRecord,
+      body: this.headerRowDailyRecord,
+      styles: {
+        cellWidth: 150,
+        minCellHeight: 10,
+        fontSize:10,
+        rowPageBreak: 'avoid',
+        overflow: 'hidden',
+      },
+      theme:"plain",
+
+      drawHeaderRow: () => false,
+      columnStyles: {
+        details: {fillColor: "rgb(255, 134, 125)", textColor: 255, fontStyle: 'bold'},
+      },
+      
+      startY: Yax+40,
+      didDrawPage: function (data) {
+
+          let pageSize = doc.internal.pageSize;
+          let pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+          let pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+          // Header
+          doc.setFontSize(16);
+          doc.setTextColor(100);
+          doc.setFontStyle('normal');            
+      // Client's Company Name
+
+      // Footer
+          let page = "Page " + doc.internal.getNumberOfPages()
+          doc.setFontSize(10);
+
+          doc.text(today, data.settings.margin.left, pageHeight - 15);
+          doc.text(officeCd, pageWidth / 2, pageHeight - 15, 'center');
+          doc.text(page, pageWidth - data.settings.margin.right-15, pageHeight - 15);
+      },      
+      margin: { top: 15 }
+    });
+    doc.setPage(pageNumber);
+    doc.autoTable({ 
+
+      columns: this.dailyFuelVolumeRecord,
+      body: this.data,
+      styles: {
+        cellWidth: 'wrap',
+        rowPageBreak: 'auto',
+        overflow: 'hidden',
+      },
+      headStyles: {
+        fillColor: 'red'
+      },  
+      theme:"grid",
+    startY: doc.lastAutoTable.finalY + 350,
+
+    didDrawPage: function (data) {
+
+      let pageSize = doc.internal.pageSize;
+      let pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+      let pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+      // Header
+      doc.setFontSize(18);
+      doc.setTextColor(100);
+      doc.setFontStyle('normal');            
+      doc.text(organization, pageWidth / 2, Yax+30, 'center');
+
+      // Footer
+      let page = "Page " + doc.internal.getNumberOfPages()
+      doc.setFontSize(10);
+
+      doc.text(today, data.settings.margin.left, pageHeight - 15);
+      doc.text(officeCd, pageWidth / 2, pageHeight - 15, 'center');
+      doc.text(page, pageWidth - data.settings.margin.right-15, pageHeight - 15);
+  }, 
+    });
+    // // Open PDF document in new tab
+    doc.output('dataurlnewwindow')
+    doc.save(FileName);
+  }
+
+/**********************************************************************
+Function :getFormattedDate  -> This will generate a pdf for Employee Violation Record 
+/**********************************************************************/
+  getFormattedDate() {
+      var dt = new Date();
+
+      var month = '' + (dt.getMonth() + 1);
+      if (month.length < 2) 
+        month = '0' + month;
+
+      var date = '' + dt.getDate();
+      if (date.length < 2) 
+        date = '0' + date;
+
+      var hour = '' + dt.getHours();
+      if (hour.length < 2) 
+          hour = '0' + hour;
+
+      var min = '' + dt.getMinutes();
+      if (min.length < 2) 
+          min = '0' + min;        
+
+      var secs = '' + dt.getSeconds();
+      if (secs.length < 2) 
+        secs = '0' + secs;        
+
+      var str = dt.getFullYear() + "-" + month + "-" + date + " " +  hour + ":" + min + ":" + secs;
+
+      return str;
+    }
+  /**********************************************************************
+Function :setPrintColAttr  -> This will generate table of Overall Organization Report 
+/**********************************************************************/
+    setPrintColAttr() {
+      if (!this.dailyFuelVolumeRecord['header'] || !this.dailyFuelVolumeRecord['dataKey']) {
+        this.dailyFuelVolumeRecord.forEach(col => {
+          col['header'] = col.name,
+            col['dataKey'] = col.prop
+        })
+      }
+    }
+
+}
+
+

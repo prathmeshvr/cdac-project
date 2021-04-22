@@ -1,0 +1,209 @@
+<div class="heading"><h1>Assets</h1></div>
+
+<!-- <div class="content" fxLayout="row wrap" fxLayoutGap="16px grid" >
+    <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let item of sampleAssetModel;let i = index;">
+      
+      <mat-card class="mat-elevation-z4" >
+        <mat-card-header>
+      
+          <mat-card-title>{{item.parameterName}}</mat-card-title>
+        </mat-card-header>
+      
+        <mat-card-content>
+        
+          
+          <div fxLayout="column" fxLayoutAlign="none center" >
+         
+            <div class="power-switch">
+              <input type="checkbox" name="" id="" [(ngModel)]="item.isChecked" (change)="changeSelection($event,i)">
+              
+              <div class="button">
+                <svg class="power-off">
+                  <use xlink:href="#line" class="line" />
+                  <use xlink:href="#circle" class="circle" />
+                </svg>
+                <svg class="power-on">
+                  <use xlink:href="#line" class="line" />
+                  <use xlink:href="#circle" class="circle" />
+                </svg>
+              </div>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+              <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" id="line">
+                <line x1="75" y1="34" x2="75" y2="58"/>
+              </symbol>
+              <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150" id="circle">
+                <circle cx="75" cy="80" r="35"/>
+              </symbol>
+            </svg>
+
+            <h5 id="assetStatus" *ngIf="!item.isChecked">{{item.parameterName}} Off</h5>
+            <h5 id="assetStatus" *ngIf="item.isChecked">{{item.parameterName}} On</h5>
+            
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          
+        </mat-card-actions>
+      </mat-card>
+    </div>
+</div> -->
+
+
+  <!-- scheduling details -->
+<!-- <div class="content" fxLayout="row" fxLayoutAlign="space-around none" fxLayoutGap="16px grid">
+  <div  fxFlex>
+    <div class="heading"><h1>Total Active Appliances</h1></div>
+    
+  </div>
+
+  <div fxFlex="70%">
+    <div class="heading"><h1>Schedule</h1></div>
+    <div class="content" fxLayout="row" fxLayoutAlign="space-around none" fxLayoutGap="16px grid">
+      <div fxFlex>
+        <mat-card class="mat-elevation-z4" >
+          <mat-card-content>
+            <div fxLayout="column" fxLayoutAlign="none center" >
+              <h2>Total Active Schedule</h2>
+              <h4>10/15</h4>
+              
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div fxFlex>
+        <mat-card class="mat-elevation-z4" >
+          <mat-card-content>
+            <div fxLayout="column" fxLayoutAlign="none center" >
+              <h2>Add Schedule</h2>
+              <button mat-fab color="accent" aria-label="Example icon button with a bookmark icon">
+                <mat-icon>add</mat-icon>
+              </button>
+              
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            
+          </mat-card-actions>
+        </mat-card>
+      </div>
+  </div>
+  </div>
+</div> -->
+
+
+<!-- all parameters -->
+
+<!-- <div class="heading"><h1>Details</h1></div> -->
+  
+<!-- <div class="content" fxLayout="row" fxLayoutAlign="space-around none" fxLayoutGap="16px grid">
+  <div  fxFlex>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> Device </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <mat-icon>{{element.position}}</mat-icon> </mat-cell>
+      </ng-container>
+    
+    
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Appliances </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+    
+     
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Today's On Hours </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns" color='warn'></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <div fxFlex>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> Device </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <mat-icon>{{element.position}}</mat-icon> </mat-cell>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Appliances </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Today's On Hours </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns" color='warn'></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+</div> -->
+
+
+ 
+
+  <!-- <div class="heart-rate">
+    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="50px" height="20px" viewBox="0 0 150 73" enable-background="new 0 0 150 73" xml:space="preserve">
+      <polyline fill="none" stroke="#009B9E" stroke-width="3" stroke-miterlimit="10" points="0,45.486 38.514,45.486 44.595,33.324 50.676,45.486 57.771,45.486 62.838,55.622 71.959,9 80.067,63.729 84.122,45.486 97.297,45.486 103.379,40.419 110.473,45.486 150,45.486"
+      />
+    </svg>
+    <div class="fade-in"></div>
+    <div class="fade-out"></div>
+  </div> -->
+
+
+
+  <div class="content" fxLayout="row wrap" fxLayoutGap="20px grid">
+    <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let asset of sampleAssetModel;let i = index">
+      <mat-card  id="button-card"  >
+        
+        <h4 >{{sampleAssetModel[i].name}}</h4>
+        <h4 >{{sampleAssetModel[i].value}}</h4>
+        
+        <!-- <img src={{sampleAssetModel[i].assetImg}} style="width:50px;height:50px;"> -->
+      </mat-card>
+    </div>
+
+  </div>
+
+  <div class="content">
+    <div  fxLayout="column" fxLayoutGap="20px" *ngFor="let graph of graphs; let i = index">
+        
+        <div fxLayoutAlign="space-between center" >
+            <h1 class ="main_title">{{graph.name }}</h1>
+            <!-- <mat-select placeholder="Duration"  size="2" class="main_bar" (selectionChange)="valPrint($event.value,i)">
+                <mat-option *ngFor="let t of types" [value]="t" >{{ t }}</mat-option>
+            </mat-select> -->
+        </div> 
+        
+        <div class ="chart">
+            <div echarts [options]="graph.option" class="chart"></div>
+        </div>
+        
+    </div>
+
+</div>

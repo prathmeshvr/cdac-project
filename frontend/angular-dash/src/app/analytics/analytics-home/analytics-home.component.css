@@ -1,0 +1,30 @@
+.chart {
+    height: 40vh;
+  }
+  
+  .chart-lg {
+    height: 700px;
+  }
+
+  .main_title
+{
+  display: inline-block;
+  width: 100%;
+
+}
+.blank{
+  height: 75%;
+}
+
+.content {
+  padding: 16px;
+}
+
+.main_bar
+{
+  
+  display: inline-block;
+  width: 100px;
+  padding-left:8%;
+  text-align:end
+}

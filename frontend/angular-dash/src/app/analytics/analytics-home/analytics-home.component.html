@@ -1,0 +1,18 @@
+<div class="content">
+    <!-- <div  fxLayout="column" fxLayoutGap="20px" *ngFor="let graph of graphs; let i = index"> -->
+        
+        <!-- <div fxLayoutAlign="space-between center" >
+            <h1 class ="main_title">{{graph.name }}</h1>
+            <mat-select placeholder="Duration"  size="2" class="main_bar" (selectionChange)="valPrint($event.value,i)">
+                <mat-option *ngFor="let t of types" [value]="t" >{{ t }}</mat-option>
+            </mat-select>
+        </div>  -->
+        
+        <div class ="chart">
+            <div echarts [options]="graphs" class="chart"></div>
+        </div>
+        
+    <!-- </div> -->
+
+</div>
+
