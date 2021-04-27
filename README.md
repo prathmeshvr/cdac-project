@@ -1,4 +1,4 @@
-Analytica project 
+# Analytica project 
 
 Following stack:
   Backend: Python (fastapi,pymongo) with MongoDB as Database
